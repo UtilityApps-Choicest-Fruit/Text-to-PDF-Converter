@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text to PDF Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 400px; margin: auto; }
+        label, input, button { display: block; width: 100%; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to PDF Converter</h1>
+        <form id="convertForm">
+            <label for="textFile">Select a text file:</label>
+            <input type="file" id="textFile" accept=".txt" required>
+            <button type="submit">Convert to PDF</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        
+        document.getElementById('convertForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('textFile');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const text = await file.text();
+
+            // Use pdf-lib in the browser
+            const { PDFDocument, StandardFonts } = window['pdf-lib'];
+            const pdfDoc = await PDFDocument.create();
+            const page = pdfDoc.addPage();
+            const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+            const fontSize = 12;
+            const { width, height } = page.getSize();
+
+            // Simple line splitting for demonstration
+            const lines = text.split('\n');
+            let y = height - 40;
+            for (let line of lines) {
+                if (y < 40) break;
+                page.drawText(line, { x: 40, y, size: fontSize, font });
+                y -= fontSize + 4;
+            }
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+
+            document.getElementById('result').innerHTML = 
+                `<a href="${url}" download="output.pdf">Download PDF</a>`;
+        });
+    </script>
+    <!-- Load pdf-lib from CDN -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+</body>
+</html>
