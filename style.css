@@ -1,0 +1,141 @@
+/* Basic reset */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Center the main container */
+.container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 24px;
+}
+
+/* Textarea styling */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 20px;
+    background: #f9fafc;
+    transition: border 0.2s;
+}
+textarea:focus {
+    border-color: #4f8cff;
+    outline: none;
+}
+
+/* Button styling */
+button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #4f8cff 0%, #6fc3ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+/* Add to the end of your file */
+
+/* Style file input */
+input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    background: #f9fafc;
+    margin-bottom: 18px;
+    font-size: 1rem;
+}
+
+/* Button hover effect */
+button:hover {
+    background: linear-gradient(90deg, #357ae8 0%, #4f8cff 100%);
+    box-shadow: 0 2px 8px rgba(79,140,255,0.15);
+}
+
+/* Style download link as button */
+#result a {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #4f8cff 0%, #6fc3ff 100%);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+#result a:hover {
+    background: linear-gradient(90deg, #357ae8 0%, #4f8cff 100%);
+}
+
+/* Add a subtle divider */
+form {
+    border-bottom: 1px solid #e3e8f0;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.95rem;
+    margin-top: 32px;
+}
+
+/* Optional: Add a soft background gradient */
+body {
+    background: linear-gradient(120deg, #f4f6fb 60%, #e3e8f0 100%);
+}
+
+/* Drag and drop zone styling */
+#dropZone {
+    border: 2px dashed #4f8cff;
+    border-radius: 10px;
+    background: #f9fafc;
+    color: #2d3a4b;
+    text-align: center;
+    padding: 36px 16px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+}
+#dropZone.dragover {
+    border-color: #357ae8;
+    background: #e3e8f0;
+}
+#dropZone p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+#dropZone span {
+    color: #a0aec0;
+    font-size: 0.95rem;
+}
