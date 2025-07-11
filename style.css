@@ -9,12 +9,16 @@ body {
 
 /* Center the main container */
 .container {
-    max-width: 500px;
-    margin: 60px auto;
+    max-width: 520px;
+    margin: 60px auto 40px auto;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    padding: 32px 24px;
+    box-shadow: 0 8px 32px rgba(79, 140, 255, 0.10);
+    padding: 40px 28px;
+    transition: box-shadow 0.2s;
+}
+.container:hover {
+    box-shadow: 0 12px 40px rgba(79, 140, 255, 0.13);
 }
 
 /* Headings */
@@ -22,6 +26,9 @@ h1 {
     text-align: center;
     color: #2d3a4b;
     margin-bottom: 24px;
+    border-bottom: 2px solid #e3e8f0;
+    padding-bottom: 12px;
+    margin-bottom: 32px;
 }
 
 /* Textarea styling */
@@ -68,7 +75,7 @@ input[type="file"] {
     border: 1px solid #d1d9e6;
     border-radius: 8px;
     background: #f9fafc;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
     font-size: 1rem;
 }
 
@@ -107,6 +114,9 @@ footer {
     color: #a0aec0;
     font-size: 0.95rem;
     margin-top: 32px;
+    border-top: 1px solid #e3e8f0;
+    padding-top: 16px;
+    margin-top: 40px;
 }
 
 /* Optional: Add a soft background gradient */
@@ -126,6 +136,11 @@ body {
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
     position: relative;
+    font-size: 1.15rem;
+    font-weight: 400;
+    background: #f4f8ff;
+    border: 2.5px dashed #4f8cff;
+    margin-bottom: 28px;
 }
 #dropZone.dragover {
     border-color: #357ae8;
@@ -134,8 +149,37 @@ body {
 #dropZone p {
     margin: 0;
     font-size: 1.1rem;
+    color: #357ae8;
+}
+#dropZone::before {
+    content: "⬇️";
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 10px;
 }
 #dropZone span {
     color: #a0aec0;
     font-size: 0.95rem;
+}
+
+/* Form label styling */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4f8cff;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 16px 4px;
+        max-width: 98vw;
+    }
+    #dropZone {
+        padding: 24px 4px;
+    }
+    iframe {
+        height: 300px !important;
+    }
 }
