@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // This script converts a text file to a PDF file using pdf-lib and Node.js
 
 const fs = require('fs');
@@ -54,5 +54,5 @@ const inputFile = path.join(__dirname, 'input.txt');
 const outputFile = path.join(__dirname, 'output.pdf');
 textToPDF(inputFile, outputFile);
 
-=======
->>>>>>> b4c0b7ad3846a97c78c5a63da349c6f8e4ebdf52
+
+ main
