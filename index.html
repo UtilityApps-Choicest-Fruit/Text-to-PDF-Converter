@@ -19,42 +19,53 @@
         </form>
         <div id="result"></div>
     </div>
-    <script>
-        
-        document.getElementById('convertForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const fileInput = document.getElementById('textFile');
-            const file = fileInput.files[0];
-            if (!file) return;
-
-            const text = await file.text();
-
-            // Use pdf-lib in the browser
-            const { PDFDocument, StandardFonts } = window['pdf-lib'];
-            const pdfDoc = await PDFDocument.create();
-            const page = pdfDoc.addPage();
-            const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-            const fontSize = 12;
-            const { width, height } = page.getSize();
-
-            // Simple line splitting for demonstration
-            const lines = text.split('\n');
-            let y = height - 40;
-            for (let line of lines) {
-                if (y < 40) break;
-                page.drawText(line, { x: 40, y, size: fontSize, font });
-                y -= fontSize + 4;
-            }
-
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-
-            document.getElementById('result').innerHTML = 
-                `<a href="${url}" download="output.pdf">Download PDF</a>`;
-        });
-    </script>
-    <!-- Load pdf-lib from CDN -->
+    <!-- Load pdf-lib from CDN FIRST -->
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- Then your custom script -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('convertForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const fileInput = document.getElementById('textFile');
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const text = await file.text();
+
+        // Use pdf-lib in the browser
+        const pdfLib = window.pdfLib;
+        if (!pdfLib) {
+            document.getElementById('result').innerText = "pdf-lib failed to load.";
+            return;
+        }
+        const { PDFDocument, StandardFonts } = pdfLib;
+        if (!PDFDocument) {
+            document.getElementById('result').innerText = "pdf-lib failed to load.";
+            return;
+        }
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage();
+        const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        const fontSize = 12;
+        const { width, height } = page.getSize();
+
+        // Simple line splitting for demonstration
+        const lines = text.split('\n');
+        let y = height - 40;
+        for (let line of lines) {
+            if (y < 40) break;
+            page.drawText(line, { x: 40, y, size: fontSize, font });
+            y -= fontSize + 4;
+        }
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        document.getElementById('result').innerHTML = 
+            `<a href="${url}" download="output.pdf">Download PDF</a>`;
+    });
+});
+    </script>
 </body>
 </html>

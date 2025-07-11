@@ -52,3 +52,4 @@ async function textToPDF(inputPath, outputPath) {
 const inputFile = path.join(__dirname, 'input.txt');
 const outputFile = path.join(__dirname, 'output.pdf');
 textToPDF(inputFile, outputFile);
+
