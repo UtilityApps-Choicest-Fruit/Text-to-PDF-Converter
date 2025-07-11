@@ -183,3 +183,32 @@ form label {
         height: 300px !important;
     }
 }
+
+/* Navigation bar styling */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin: 24px 0 32px 0;
+}
+
+.main-nav a {
+    padding: 10px 24px;
+    background: linear-gradient(90deg, #4f8cff 0%, #6fc3ff 100%);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+    border: none;
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+    background: linear-gradient(90deg, #357ae8 0%, #4f8cff 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(79,140,255,0.13);
+    text-decoration: none;
+}
