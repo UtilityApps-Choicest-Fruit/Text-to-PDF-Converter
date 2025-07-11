@@ -19,53 +19,56 @@
         </form>
         <div id="result"></div>
     </div>
-    <!-- Load pdf-lib from CDN FIRST -->
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-    <!-- Then your custom script -->
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('convertForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const fileInput = document.getElementById('textFile');
-        const file = fileInput.files[0];
-        if (!file) return;
+    <!-- Load pdf-lib from CDN -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script type="module">
+  import { PDFDocument, StandardFonts } from "https://cdn.skypack.dev/pdf-lib";
 
-        const text = await file.text();
+  document.getElementById('convertForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const fileInput = document.getElementById('textFile');
+    const file = fileInput.files[0];
+    if (!file) {
+      alert("Please select a text file.");
+      return;
+    }
 
-        // Use pdf-lib in the browser
-        const pdfLib = window.pdfLib;
-        if (!pdfLib) {
-            document.getElementById('result').innerText = "pdf-lib failed to load.";
-            return;
-        }
-        const { PDFDocument, StandardFonts } = pdfLib;
-        if (!PDFDocument) {
-            document.getElementById('result').innerText = "pdf-lib failed to load.";
-            return;
-        }
-        const pdfDoc = await PDFDocument.create();
-        const page = pdfDoc.addPage();
-        const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-        const fontSize = 12;
-        const { width, height } = page.getSize();
+    try {
+      const text = await file.text();
 
-        // Simple line splitting for demonstration
-        const lines = text.split('\n');
-        let y = height - 40;
-        for (let line of lines) {
-            if (y < 40) break;
-            page.drawText(line, { x: 40, y, size: fontSize, font });
-            y -= fontSize + 4;
-        }
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage();
+      const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      const fontSize = 12;
+      const { width, height } = page.getSize();
 
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
+      const margin = 40;
+      let y = height - margin;
+      const lines = text.split('\n');
 
-        document.getElementById('result').innerHTML = 
-            `<a href="${url}" download="output.pdf">Download PDF</a>`;
-    });
-});
-    </script>
+      for (let line of lines) {
+        if (y < margin) break;
+        page.drawText(line, { x: margin, y, size: fontSize, font });
+        y -= fontSize + 4;
+      }
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "output.pdf";
+      link.textContent = "Download PDF";
+      document.getElementById('result').innerHTML = "";
+      document.getElementById('result').appendChild(link);
+    } catch (err) {
+      console.error(err);
+      alert("Error generating PDF");
+    }
+  });
+</script>
+
+
 </body>
 </html>
